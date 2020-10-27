@@ -1,0 +1,325 @@
+#include<stdlib.h>
+#include<stdio.h>
+#include<math.h>
+#include<string.h>
+#include<time.h>
+
+// Merging Function for Num
+void merging_Num(int arr[], int l, int m, int r)
+{
+	int i, j, k;
+	int n1 = m - l + 1;
+	int n2 = r - m;
+	int L[n1], R[n2];
+	
+	for (i = 0; i < n1; i++)
+	{
+		L[i] = arr[l + i];	
+	}
+			
+	for (j = 0; j < n2; j++)
+	{
+		R[j] = arr[m + 1+ j];	
+	}
+	
+	i = 0;
+	j = 0;
+	k = l;
+	
+	while (i < n1 && j < n2)
+	{
+		if (L[i] <= R[j])
+		{
+			arr[k] = L[i];
+			i++;
+		}	
+		
+		else
+		{
+			arr[k] = R[j];
+			j++;
+		}
+		
+		k++;
+	}
+	
+	while (i < n1)
+	{
+		arr[k] = L[i];
+		i++;
+		k++;
+	}
+	
+	while (j < n2)
+	{
+		arr[k] = R[j];
+		j++;
+		k++;
+	}		
+}
+
+
+
+// Merging Function For Char
+void merging_Char(char arr[], int l, int m, int r)
+{
+	int i, j, k;
+	int n1 = m - l +1;
+	int n2 = r - m;
+	int L[n1], R[n2];
+	
+	for (i = 0; i < n1; i++)
+	{
+		L[i] = arr[l + i];
+	}
+	
+	for(j = 0; j < n2; j++)
+	{
+		R[j] = arr[m + 1+ j];
+	}
+	
+	i = 0;
+	j = 0;
+	k = l;
+	
+	while (i < n1 && j < n2)
+	{
+		if (L[i] <= R[j])
+		{
+			arr[k] = L[i];
+			i++;
+		}
+		
+		else
+		{
+			arr[k] = R[j];
+			j++;
+		}
+		
+		k++;
+	}
+	
+	while (i < n1)
+	{
+		arr[k] = L[i];
+		i++;
+		k++;
+	}
+
+	while (j < n2)
+	{
+		arr[k] = R[j];
+		j++;
+		k++;
+	}
+}
+
+
+// Merge Sort For Num
+void mergeSort_Num(int arr[], int l, int r)
+{
+	if (l < r)
+	{
+		int m = l + (r-l) / 2;
+		mergeSort_Num(arr, l, m);
+		mergeSort_Num(arr, m + 1, r);
+		merging_Num(arr, l, m, r);
+	}
+}
+
+// Merge Sort For Char
+void mergeSort_Char(char arr[], int l, int r)
+{
+	if (l < r)
+	{
+		int m = l+(r-l)/2;
+		mergeSort_Char(arr, l, m);
+		mergeSort_Char(arr, m + 1, r);
+		merging_Char(arr, l, m, r);
+	}
+}
+
+
+
+void insertionSorting_Num(int arr[], int n)
+{
+	int i, k, j;
+
+  	for (i = 1; i < n; i++)
+    {
+      k = arr[i];
+      j = i - 1;
+
+    while (j >= 0 && arr[j] > k)
+	{
+	  arr[j + 1] = arr[j];
+	  j = j - 1;
+	}
+      arr[j + 1] = k;
+    }
+}
+
+void insertionSorting_Char(char arr[], int n)
+{
+	int i, j;
+  	char c;
+
+  	for (i = 1; i < n; i++)
+    {
+      c = arr[i];
+      j = i - 1;
+
+    while (j >= 0 && arr[j] > c)
+	{
+	  arr[j + 1] = arr[j];
+	  j = j - 1;
+	}
+	
+    arr[j + 1] = c;
+    
+    }
+}
+
+void swapping_Num(int *xp, int *yp)
+{
+	int temp = *xp;
+  	*xp = *yp;
+  	*yp = temp;
+}
+
+void swapping_Char(char *xp, char *yp)
+{
+	char temp = *xp;
+  	*xp = *yp;
+  	*yp = temp;
+}
+
+
+void bubbleSort_Num(int arr[], int n)
+{
+	int i, j;
+	
+  	for (i = 0; i < n - 1; i++)
+    {
+      for (j = 0; j < n - i - 1; j++)
+		{
+	  		if (arr[j] > arr[j + 1])
+	    	{
+	      		swapping_Num(&arr[j], &arr[j + 1]);
+	    	}
+		}
+    }
+}
+
+void bubbleSort_Char(char arr[], int n)
+{
+	int i, j;
+  
+  	for (i = 0; i < n - 1; i++)
+    {
+      	for (j = 0; j < n - i - 1; j++)
+		{
+	  		if (arr[j] > arr[j + 1])
+	    	{
+	      		swapping_Char(&arr[j], &arr[j + 1]);
+	    	}
+		}
+	
+    }
+}
+
+
+
+
+// Printing Array
+void displayArray(int arr[], int size)
+{
+	int i;
+	for (i=0; i < size; i++)
+	{
+		printf("%d ", arr[i]);
+	}
+	printf("\n");
+}
+
+int main()
+{
+	//Merging
+	int num_Merg[] = {2, 0, 1, 7, 5, 5, 6, 0, 6, 8};
+	char name_Merg[] = "ekrem yilmaz";
+	
+	clock_t start;
+	
+	int numSize_Merg = sizeof(num_Merg) / sizeof(num_Merg[0]);
+	int nameSize_Merge = strlen (name_Merg);
+	
+	start = clock();
+	mergeSort_Num(num_Merg, 0, numSize_Merg - 1);
+	start = clock() - start;
+	
+	displayArray(num_Merg, numSize_Merg);
+	printf ("Merge Timing: %f\n", ((double) start) / CLOCKS_PER_SEC);
+	
+	mergeSort_Char(name_Merg, 0, nameSize_Merge - 1);
+	
+	start = clock() - start;
+	
+	 printf ("%s\n", name_Merg);
+	 printf ("Time of char Merge Sort: %f\n\n", ((double) start) / CLOCKS_PER_SEC);
+	 
+	 
+	 // Inserting
+	 
+	int num_Inserting[] = { 2, 0, 1, 7, 5, 5, 6, 0, 6, 8 };
+  	char name_Inserting[] = "ekrem yilmaz";
+
+  	
+
+  	int numSize_Inserting = sizeof(num_Inserting) / sizeof(num_Inserting[0]);
+  	int nameSize_Inserting = strlen(name_Inserting);
+
+  	start = clock();
+  	insertionSorting_Num(num_Inserting, numSize_Inserting);
+  	start = clock() - start;
+
+  	displayArray(num_Inserting, numSize_Inserting);
+  	printf ("inserting time: %f\n", ((double) start) / CLOCKS_PER_SEC);
+
+  	insertionSorting_Char(name_Inserting, nameSize_Inserting);
+
+  	start = clock() - start;
+
+  	printf("%s\n", name_Inserting);
+  	printf ("Insertion Sorting time for char:  %f\n\n", ((double) start) / CLOCKS_PER_SEC);
+  	
+  	
+  	//Bubble Sort
+  	
+	int num_Bub[] = { 2, 0, 1, 7, 5, 5, 6, 0, 6, 8};
+  	char name_Bub[] = "ekrem yilmaz";
+
+  	int numSize_Bub = sizeof(num_Bub) / sizeof(num_Bub[0]);
+  	int charSize_Bub = strlen (name_Bub);
+
+  	bubbleSort_Num(num_Bub, numSize_Bub);
+  	
+  	start = clock() - start;
+
+  	displayArray(num_Bub, numSize_Bub);
+  	printf("bubble Sort timing: %f\n", ((double) start) / CLOCKS_PER_SEC);
+
+  	bubbleSort_Char(name_Bub, charSize_Bub);
+
+  	start = clock() - start;
+
+  	printf("%s\n", name_Bub);
+  	printf("bubble sort timing for char: %f\n\n", ((double) start) / CLOCKS_PER_SEC);
+	 
+	 
+	 
+	
+}
+
+
+
+
