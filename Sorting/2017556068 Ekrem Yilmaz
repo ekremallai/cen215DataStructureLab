@@ -1,0 +1,429 @@
+#include <stdio.h>
+#include <string.h>
+#include <time.h>
+
+
+
+void mergingNumber(int num[], int l, int m, int r)
+{
+    int i, j, k;
+
+    int leftSize = m - l + 1;
+    int rightSize = r - m;
+
+    int left[leftSize], right[rightSize];
+
+    for (i = 0; i < leftSize; i++)
+    {
+        left[i] = num[l + i];
+    }
+    for (j = 0; j < rightSize; j++)
+    {
+        right[j] = num[m + 1 + j];
+    }
+
+    j = 0, i = 0, k = l;
+
+    while (leftSize > i && rightSize > j)
+    {
+        if (left[i] <= right[j])
+        {
+            num[k] = left[i];
+            i++;
+        }
+        else
+        {
+            num[k] = right[j];
+            j++;
+        }
+        k++;
+    }
+
+    while (leftSize > i)
+    {
+        num[k] = left[i];
+        k++;
+        i++;
+    }
+    while (rightSize > j)
+    {
+        num[k] = right[j];
+        k++;
+        j++;
+    }
+}
+
+
+void mergingName(char num[], int l, int m, int r)
+{
+    int i, j, k;
+    int leftSize = m - l + 1;
+    int rightSize = r - m;
+    int left[leftSize], right[rightSize];
+
+    for (i = 0; i < leftSize; i++)
+    {
+        left[i] = num[l + i];
+    }
+    for (j = 0; j < rightSize; j++)
+    {
+        right[j] = num[m + 1 + j];
+    }
+
+    j = 0, i = 0, k = l;
+
+    while (leftSize > i && rightSize > j)
+    {
+        if (left[i] <= right[j])
+        {
+            num[k] = left[i];
+            i++;
+        }
+        else
+        {
+            num[k] = right[j];
+            j++;
+        }
+        k++;
+    }
+
+    while (leftSize > i)
+    {
+        num[k] = left[i];
+        k++;
+        i++;
+    }
+    while (rightSize > j)
+    {
+        num[k] = right[j];
+        k++;
+        j++;
+    }
+}
+
+
+
+
+void mergeSortNumber(int num[], int l, int r)
+{
+    if (l < r)
+    {
+        int m = l + (r - l) / 2;
+
+        mergeSortNumber(num, l, m);
+        mergeSortNumber(num, m + 1, r);
+
+        mergingNumber(num, l, m, r);
+    }
+}
+
+
+void mergeSortName(char num[], int l, int r)
+{
+    if (l < r)
+    {
+        int m = l + (r - l) / 2;
+
+        mergeSortName(num, l, m);
+        mergeSortName(num, m + 1, r);
+
+        mergingName(num, l, m, r);
+    }
+}
+
+
+
+void insertionSortNum(int num[], int size)
+{
+
+    int i, j;
+    int x;
+    for (i = 1; i < size; i++)
+    {
+        x = num[i];
+
+        for (j = i - 1; j >= 0 && num[j] > x; j--)
+        {
+            num[j + 1] = num[j];
+        }
+        num[j + 1] = x;
+    }
+}
+
+void insertionSortName(char name[], int size)
+{
+    int i, j;
+    char x;
+    for (i = 1; i < size; i++)
+    {
+        x = name[i];
+
+        for (j = i - 1; j >= 0 && name[j] > x; j--)
+        {
+            name[j + 1] = name[j];
+        }
+        name[j + 1] = x;
+    }
+}
+
+void swappingNum(int *num1, int *num2)
+{
+    int temp = *num1;
+    *num1 = *num2;
+    *num2 = temp;
+}
+
+void swappingChar(char *num1, char *num2)
+{
+    char temp = *num1;
+    *num1 = *num2;
+    *num2 = temp;
+}
+
+
+void selectionSortNumber(int num[], int size)
+{
+	int i, j, min, temp;
+
+    for (i = 0; i < size - 1; i++)
+    {
+        min = i;
+        for (j = i + 1; j < size; j++)
+        {
+            if (num[min] > num[j])
+            {
+                min = j;
+            }
+        }
+        swappingNum(&num[i], &num[min]);
+    }
+}
+
+void selectionSortName(char name[], int size)
+{
+	int i, j, min, temp;
+
+    for (i = 0; i < size - 1; i++)
+    {
+        min = i;
+        for (j = i + 1; j < size; j++)
+        {
+            if (name[min] > name[j])
+            {
+                min = j;
+            }
+        }
+        swappingChar(&name[i], &name[min]);
+    }
+}
+
+
+void bubbleSortNumber (int arr[], int n)
+{
+  int i, j;
+  for (i = 0; i < n - 1; i++)
+    {
+    	for (j = 0; j < n - i - 1; j++)
+		{
+	  		if (arr[j] > arr[j + 1])
+	    	{
+	      		swappingNum(&arr[j], &arr[j + 1]);
+	    	}
+		}
+    }
+}
+
+void bubbleSortChar(char arr[], int n)
+{
+	int i, j;
+  
+  	for (i = 0; i < n - 1; i++)
+    {
+    	
+    	for (j = 0; j < n - i - 1; j++)
+		{
+	  		if (arr[j] > arr[j + 1])
+	    	{
+	      		swappingChar (&arr[j], &arr[j + 1]);
+	    	}
+		}
+	
+    }
+}
+
+
+
+int partitionNum(int num[], int low, int high)
+{
+
+    char pivot = num[high];
+
+    int i = low - 1;
+
+    for (int j = low; j < high; j++)
+    {
+        if (num[j] < pivot)
+        {
+            i++;
+            swappingNum(&num[i], &num[j]);
+        }
+    }
+
+    swappingNum(&num[i + 1], &num[high]);
+    return i + 1;
+}
+
+int partitionName(char name[], int low, int high)
+{
+
+    int pivot = name[high];
+
+    int i = low - 1;
+
+    for (int j = low; j < high; j++)
+    {
+        if (name[j] < pivot)
+        {
+            i++;
+            swappingChar(&name[i], &name[j]);
+        }
+    }
+
+    swappingChar(&name[i + 1], &name[high]);
+    return i + 1;
+}
+
+void quickSortNum(int num[], int low, int high)
+{
+    int pivot;
+    if (low < high)
+    {
+        pivot = partitionNum(num, low, high);
+        quickSortNum(num, low, pivot - 1);
+        quickSortNum(num, pivot + 1, high);
+    }
+}
+
+void quickSortName(char name[], int low, int high)
+{
+    int pivot;
+    if (low < high)
+    {
+        pivot = partitionName(name, low, high);
+        quickSortName(name, low, pivot - 1);
+        quickSortName(name, pivot + 1, high);
+    }
+}
+
+void heapifyNum(int num[], int size, int root)
+{
+
+    int largest = root;
+    int left = 2 * root + 1;
+    int right = 2 * root + 2;
+
+    if (size > left && num[left] > num[largest])
+        largest = left;
+    if (size > right && num[right] > num[largest])
+        largest = right;
+
+    if (largest != root)
+    {
+        swappingNum(&num[largest], &num[root]);
+
+        heapifyNum(num, size, largest);
+    }
+}
+
+void heapifyName(char name[], int size, int root)
+{
+
+    int largest = root;
+    int left = 2 * root + 1;
+    int right = 2 * root + 2;
+
+    if (size > left && name[left] > name[largest])
+        largest = left;
+    if (size > right && name[right] > name[largest])
+        largest = right;
+
+    if (largest != root)
+    {
+        swappingChar(&name[largest], &name[root]);
+
+        heapifyName(name, size, largest);
+    }
+}
+
+void heapSortNum(int num[], int size)
+{
+
+    for (int i = size / 2 - 1; i >= 0; i--)
+    {
+        heapifyNum(num, size, i);
+    }
+
+    for (int i = size - 1; i > 0; i--)
+    {
+        swappingNum(&num[0], &num[i]);
+
+        heapifyNum(num, i, 0);
+    }
+}
+
+void heapSortName(char name[], int size)
+{
+
+    for (int i = size / 2 - 1; i >= 0; i--)
+    {
+        heapifyName(name, size, i);
+    }
+
+    for (int i = size - 1; i > 0; i--)
+    {
+        swappingChar(&name[0], &name[i]);
+
+        heapifyName(name, i, 0);
+    }
+}
+
+void displayArray(int *p, int size)
+{
+   int i;
+ 
+   for (i = 0; i < size; i++)
+   {
+   		printf("%d ", p[i]);	
+   }
+   printf('\n');
+}
+
+
+
+
+int main()
+{
+	
+	int num[] = { 2, 0, 1, 7, 5, 5, 6, 0, 6, 8 };
+    char name[] = "ekrem yilmaz";
+    int n = sizeof(num) / sizeof(num[0]);
+    int char_size = strlen(name);
+    
+    time_t = clock();
+    
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+}
